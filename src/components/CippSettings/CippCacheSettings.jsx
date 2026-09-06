@@ -1,9 +1,9 @@
 import { Button, SvgIcon, Typography } from "@mui/material";
-import CippButtonCard from "/src/components/CippCards/CippButtonCard";
-import { ApiPostCall } from "/src/api/ApiCall";
+import { CippIcons } from "../../utils/icon-registry";
+import CippButtonCard from "../CippCards/CippButtonCard";
+import { ApiPostCall } from "../../api/ApiCall";
 import { CippApiDialog } from "../CippComponents/CippApiDialog";
-import { useDialog } from "/src/hooks/use-dialog";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { useDialog } from "../../hooks/use-dialog";
 
 const CippCacheSettings = () => {
   const createDialog = useDialog();
@@ -35,7 +35,7 @@ const CippCacheSettings = () => {
           disabled={resolverChange.isPending}
         >
           <SvgIcon fontSize="small" style={{ marginRight: 4 }}>
-            <TrashIcon />
+            <CippIcons.TrashIcon />
           </SvgIcon>
           Clear Cache
         </Button>
@@ -68,9 +68,9 @@ const CippCacheSettings = () => {
         api={{
           url: "/api/ListTenants",
           confirmText:
-            "This will clear the cache used by CIPP. This will slow down some aspects of the application, and should only be used when instructed to do so by support.",
-          type: "GET",
-          data: { ClearCache: "!true", TenantsOnly: "tenantsOnly" },
+            "This will clear the cache used by CIPP. This will slow down some aspects of the application, and should only be used when instructed to do so by support. This will delete any cache tables including pending audit logs that have not yet been processed. Are you sure you want to continue?",
+          type: "POST",
+          data: { ClearCache: true },
           replacementBehaviour: "removeNulls",
         }}
         row={{}}
